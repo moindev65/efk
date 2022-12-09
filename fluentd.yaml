@@ -61,6 +61,12 @@ spec:
       - name: sidecar
         image: busybox
         command: ['/bin/sh','-c','tail -f /dev/null']
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
         volumeMounts:
       - name: applogs
         hostPath:
