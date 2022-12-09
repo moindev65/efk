@@ -34,8 +34,10 @@ spec:
         resources:
           limits:
             cpu: 1000m
+            memory: 200M
           requests:
             cpu: 100m
+            memory: 200M
         env:
           - name: ELASTICSEARCH_URL
             value: http://elasticsearch:9200
