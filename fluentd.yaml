@@ -60,7 +60,11 @@ spec:
       containers:
       - name: sidecar
         image: busybox
-        args: [/bin/sh, -c,'while true; do echo "Charisma information processing company" >> /var/log/access.log; sleep 10; done']
+        command: ['/bin/sh','-c','tail -f /dev/null']
+        volumeMounts:
+      - name: applogs
+        hostPath:
+          path: /var/lib/docker/containers
       - name: fluentd
         image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
         env:
@@ -81,7 +85,7 @@ spec:
         volumeMounts:
         - name: varlog
           mountPath: /var/log
-        - name: varlibdockercontainers
+        - name: applogs
           mountPath: /var/lib/docker/containers
           readOnly: true
       terminationGracePeriodSeconds: 30
@@ -89,6 +93,6 @@ spec:
       - name: varlog
         hostPath:
           path: /var/log
-      - name: varlibdockercontainers
+      - name: applogs
         hostPath:
           path: /var/lib/docker/containers
