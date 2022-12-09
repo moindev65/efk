@@ -48,6 +48,12 @@ spec:
       initContainers:
       - name: fix-permissions
         image: busybox
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
         command: ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
         securityContext:
           privileged: true
@@ -56,11 +62,23 @@ spec:
           mountPath: /usr/share/elasticsearch/data
       - name: increase-vm-max-map
         image: busybox
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
         command: ["sysctl", "-w", "vm.max_map_count=262144"]
         securityContext:
           privileged: true
       - name: increase-fd-ulimit
         image: busybox
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
         command: ["sh", "-c", "ulimit -n 65536"]
         securityContext:
           privileged: true
